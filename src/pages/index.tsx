@@ -167,9 +167,9 @@ export default function Home() {
           <video
             ref={videoRef}
             style={{
-              // width: "100vw",
-              // height: "100vh",
-              // objectFit: "fill",
+              width: "100vw",
+              height: "100vh",
+              objectFit: "fill",
               position: "absolute",
               top: 0,
               left: 0,
