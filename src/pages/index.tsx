@@ -183,7 +183,7 @@ export default function Home() {
     // </Stack>
 
     <video
-      src="http://media.w3.org/2010/05/sintel/trailer.mp4"
+      src="https://break.co.kr/media/company_introduce.mp4"
       muted
       controls
       width="100%"
