@@ -21,6 +21,7 @@ export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [chats, setChats] = useState<string[]>([]);
   const [currentChannel, setCurrentChannel] = useState<OpenChannel>();
+  const videoRef = useRef<any>(null);
 
   const initializeLive = useCallback(async () => {
     try {
@@ -100,11 +101,19 @@ export default function Home() {
     }
   };
 
+  const enterLiveEvent = async (liveEvent: LiveEvent) => {
+    await liveEvent.enter();
+
+    liveEvent.setMediaViewForLiveEvent(
+      videoRef.current,
+      liveEvent.hosts[0].hostId
+    );
+  };
+
   const makeLiveEvent = async (index: number) => {
     setCurrentIndex(index);
 
-    console.log("liveEvents[index]", liveEvents[index]);
-
+    await enterLiveEvent(liveEvents[index]);
     await enterChatChannel(liveEvents[index].openChannel.url);
   };
 
@@ -115,6 +124,7 @@ export default function Home() {
       await currentChannel?.sendUserMessage({
         message: event.target.value,
       });
+      setChats((prev) => [...prev, event.target.value]);
 
       event.target.value = "";
     }
@@ -137,12 +147,37 @@ export default function Home() {
           </Button>
         ))}
       {currentIndex !== -1 && (
-        <Stack direction="column">
-          {chats.map((item) => (
-            <Typography key={v4()}>{item}</Typography>
-          ))}
-          <TextField onKeyDown={handleKeyDown} />
-        </Stack>
+        <Box position="relative">
+          <Stack
+            direction="column"
+            position="absolute"
+            top={0}
+            left={0}
+            zIndex={100}
+            width="100vw"
+            height="100vh"
+            sx={{ opacity: 0.5, color: "white" }}
+            overflow="hidden"
+          >
+            {chats.map((item) => (
+              <Typography key={v4()}>{item}</Typography>
+            ))}
+            <TextField onKeyDown={handleKeyDown} />
+          </Stack>
+          <video
+            ref={videoRef}
+            style={{
+              width: "100vw",
+              height: "100vh",
+              objectFit: "fill",
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+            id="video"
+            autoPlay
+          ></video>
+        </Box>
       )}
     </Stack>
   );
