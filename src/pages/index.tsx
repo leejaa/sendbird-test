@@ -164,31 +164,19 @@ export default function Home() {
             ))}
             <TextField onKeyDown={handleKeyDown} />
           </Stack>
-          {/* <video
+          <video
             ref={videoRef}
             style={{
-              width: "100vw",
-              height: "100vh",
-              objectFit: "fill",
+              // width: "100vw",
+              // height: "100vh",
+              // objectFit: "fill",
               position: "absolute",
               top: 0,
               left: 0,
             }}
             id="video"
             autoPlay
-          ></video> */}
-          <video
-            src="http://media.w3.org/2010/05/sintel/trailer.mp4"
-            style={{
-              width: "100vw",
-              height: "100vh",
-              objectFit: "fill",
-              position: "absolute",
-              top: 0,
-              left: 0,
-            }}
-            id="video"
-            autoPlay
+            playsInline
           ></video>
         </Box>
       )}
