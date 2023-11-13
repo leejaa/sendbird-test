@@ -104,6 +104,8 @@ export default function Home() {
   const enterLiveEvent = async (liveEvent: LiveEvent) => {
     await liveEvent.enter();
 
+    console.log("liveEvent", liveEvent);
+
     liveEvent.setMediaViewForLiveEvent(
       videoRef.current,
       liveEvent.hosts[0].hostId
@@ -135,58 +137,58 @@ export default function Home() {
   }, [initializeLive]);
 
   return (
-    // <Stack direction={"column"}>
-    //   {liveEvents.length === 0 && (
-    //     <Button onClick={initializeLive}>라이브방송 리스트 조회</Button>
-    //   )}
-    //   {currentIndex === -1 &&
-    //     liveEvents.length > 0 &&
-    //     liveEvents.map((item, index) => (
-    //       <Button key={v4()} onClick={() => makeLiveEvent(index)}>
-    //         {item.title}
-    //       </Button>
-    //     ))}
-    //   {currentIndex !== -1 && (
-    //     <Box position="relative">
-    //       <Stack
-    //         direction="column"
-    //         position="absolute"
-    //         top={0}
-    //         left={0}
-    //         zIndex={100}
-    //         width="100vw"
-    //         height="100vh"
-    //         sx={{ opacity: 0.5, color: "white" }}
-    //         overflow="hidden"
-    //       >
-    //         {chats.map((item) => (
-    //           <Typography key={v4()}>{item}</Typography>
-    //         ))}
-    //         <TextField onKeyDown={handleKeyDown} />
-    //       </Stack>
-    //       <video
-    //         ref={videoRef}
-    //         style={{
-    //           width: "100vw",
-    //           height: "100vh",
-    //           objectFit: "fill",
-    //           position: "absolute",
-    //           top: 0,
-    //           left: 0,
-    //         }}
-    //         id="video"
-    //         autoPlay
-    //         playsInline
-    //       ></video>
-    //     </Box>
-    //   )}
-    // </Stack>
+    <Stack direction={"column"}>
+      {liveEvents.length === 0 && (
+        <Button onClick={initializeLive}>라이브방송 리스트 조회</Button>
+      )}
+      {currentIndex === -1 &&
+        liveEvents.length > 0 &&
+        liveEvents.map((item, index) => (
+          <Button key={v4()} onClick={() => makeLiveEvent(index)}>
+            {item.title}
+          </Button>
+        ))}
+      {currentIndex !== -1 && (
+        <Box position="relative">
+          <Stack
+            direction="column"
+            position="absolute"
+            top={0}
+            left={0}
+            zIndex={100}
+            width="100vw"
+            height="100vh"
+            sx={{ opacity: 0.5, color: "white" }}
+            overflow="hidden"
+          >
+            {chats.map((item) => (
+              <Typography key={v4()}>{item}</Typography>
+            ))}
+            <TextField onKeyDown={handleKeyDown} />
+          </Stack>
+          <video
+            ref={videoRef}
+            style={{
+              width: "100vw",
+              height: "100vh",
+              objectFit: "fill",
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+            id="video"
+            autoPlay
+            playsInline
+          ></video>
+        </Box>
+      )}
+    </Stack>
 
-    <video
-      src="https://break.co.kr/media/company_introduce.mp4"
-      muted
-      controls
-      width="100%"
-    />
+    // <video
+    //   src="https://break.co.kr/media/company_introduce.mp4"
+    //   muted
+    //   controls
+    //   width="100%"
+    // />
   );
 }
